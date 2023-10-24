@@ -21,7 +21,9 @@ tunnelManager
     if (genTryCounter < 5) {
       genTryCounter++;
     } else {
-      throw new Error("Problem to connect the server!");
+      console.error("Problem to connect the server!");
+      tunnelManager.close();
+      process.exit(1);
     }
   });
 
@@ -35,7 +37,9 @@ setInterval(async () => {
         if (linkCheckTryCounter < 1) {
           linkCheckTryCounter++;
         } else {
-          throw new Error(JSON.stringify(err));
+          console.error(JSON.stringify(err));
+          tunnelManager.close();
+          process.exit(1);
         }
       });
-}, 10000);
+}, 5000);

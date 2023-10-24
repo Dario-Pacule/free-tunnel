@@ -4,7 +4,7 @@ const port = process.env.SERVICE_PORT;
 
 class TunnelManager {
   constructor() {
-    this.tunnelMoleProcess = spawn("tunnelmole", [port]);
+    this.tunnelMoleProcess = spawn("tunnelmole", ["3000"]);
     this.sysLinks = { http: "", https: "" };
   }
 
@@ -24,6 +24,7 @@ class TunnelManager {
       });
 
       this.tunnelMoleProcess.stderr.on("data", (data) => {
+        console.log("ERRO: ", data);
         reject(data.toString());
       });
 

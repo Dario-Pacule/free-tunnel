@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 
 export class Firebase {
   constructor() {
@@ -22,6 +22,15 @@ export class Firebase {
   async writeData(id, tunnelUrl) {
     set(ref(this._db, id), {
       tunnelUrl,
+    });
+  }
+
+  async getData(id) {
+    const linkerRef = ref(this._db, id);
+
+    onValue(linkerRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log("data: ", data);
     });
   }
 }
