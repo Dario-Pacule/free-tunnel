@@ -42,4 +42,4 @@ setInterval(async () => {
           process.exit(1);
         }
       });
-}, 5000);
+}, 65000);
