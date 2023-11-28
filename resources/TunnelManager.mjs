@@ -14,7 +14,7 @@ class TunnelManager {
       console.log("The tunneling process has started!");
 
       this.tunnelMoleProcess.stdout.on("data", (data) => {
-        console.log(data.toString().trim(" "));
+        console.log("DATA: ", data.toString().split(" "));
       });
 
       this.tunnelMoleProcess.stderr.on("data", (data) => {
