@@ -1,4 +1,4 @@
-import { get } from "http";
+import { get } from "https";
 
 async function checkLinkStatus(baseUrl) {
   const link = baseUrl + "/chekConnection";
