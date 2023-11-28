@@ -4,7 +4,11 @@ const port = process.env.SERVICE_PORT;
 
 class TunnelManager {
   constructor() {
-    this.tunnelMoleProcess = spawn("~/telebit", ["http ", port]);
+    const telebitPath = path.join(
+      __dirname,
+      "/home/turbokone/Applications/telebit/bin/telebit"
+    );
+    this.tunnelMoleProcess = spawn(telebitPath, ["http", port]);
     this.sysLinks = { http: "", https: "" };
   }
 
@@ -14,19 +18,10 @@ class TunnelManager {
 
       this.tunnelMoleProcess.stdout.on("data", (data) => {
         console.log(data.toString());
-        // if (data.toString().startsWith("http://")) {
-        //   this.sysLinks.http = data.toString().split(" ");
-        // }
-        // if (data.toString().startsWith("https://")) {
-        //   this.sysLinks.https = data.toString().split(" ");
-
-        //   resolve([this.sysLinks.http[0], this.sysLinks.https[0]]);
-        // }
       });
 
       this.tunnelMoleProcess.stderr.on("data", (data) => {
         console.log("ERRO: ", data);
-        // reject(data.toString());
       });
 
       this.tunnelMoleProcess.on("close", (code) => {
