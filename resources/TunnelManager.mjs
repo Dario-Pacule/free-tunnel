@@ -16,13 +16,14 @@ class TunnelManager {
       this.tunnelMoleProcess.stdout.on("data", (data) => {
         if (data.toString().startsWith(">")) {
           this.sysLink = data.toString().split(" ")[2];
-          console.log("LINK: ", this.sysLink);
         }
-        console.log("DATA: ", data.toString());
+        // console.log("DATA: ", data.toString());
+        resolve(this.sysLink);
       });
 
       this.tunnelMoleProcess.stderr.on("data", (data) => {
         console.log("ERRO: ", data.toString());
+        reject(data.toString());
       });
 
       this.tunnelMoleProcess.on("close", (code) => {

@@ -12,7 +12,7 @@ var linkCheckTryCounter = 0;
 tunnelManager
   .gen()
   .then((data) => {
-    tunnelURL = data[0];
+    tunnelURL = data;
     console.log(data);
 
     firebaseApp.writeData("liberRaspBery", tunnelURL);
