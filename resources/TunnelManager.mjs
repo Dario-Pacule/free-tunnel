@@ -1,18 +1,10 @@
 import { spawn } from "child_process";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 
 const port = process.env.SERVICE_PORT;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 class TunnelManager {
   constructor() {
-    const telebitPath = join(
-      __dirname,
-      "/home/turbokone/Applications/telebit/bin/telebit"
-    );
+    const telebitPath = "/home/turbokone/Applications/telebit/bin/telebit";
     this.tunnelMoleProcess = spawn(telebitPath, ["http", port]);
     this.sysLinks = { http: "", https: "" };
   }
