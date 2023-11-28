@@ -1,11 +1,15 @@
 import { spawn } from "child_process";
-import path from "path";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 const port = process.env.SERVICE_PORT;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 class TunnelManager {
   constructor() {
-    const telebitPath = path.join(
+    const telebitPath = join(
       __dirname,
       "/home/turbokone/Applications/telebit/bin/telebit"
     );
