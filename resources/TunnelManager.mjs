@@ -6,7 +6,7 @@ class TunnelManager {
   constructor() {
     const telebitPath = "/home/turbokone/Applications/telebit/bin/telebit";
     this.tunnelMoleProcess = spawn(telebitPath, ["http", port]);
-    this.sysLinks = { http: "", https: "" };
+    this.sysLink = "";
   }
 
   async gen() {
@@ -14,11 +14,11 @@ class TunnelManager {
       console.log("The tunneling process has started!");
 
       this.tunnelMoleProcess.stdout.on("data", (data) => {
-        console.log(data.toString());
+        console.log(data.toString().trim(" "));
       });
 
       this.tunnelMoleProcess.stderr.on("data", (data) => {
-        console.log("ERRO: ", data);
+        console.log("ERRO: ", data.toString());
       });
 
       this.tunnelMoleProcess.on("close", (code) => {
