@@ -4,7 +4,7 @@ const port = process.env.SERVICE_PORT;
 
 class TunnelManager {
   constructor() {
-    this.tunnelMoleProcess = spawn("tunnelmole", [port]);
+    this.tunnelMoleProcess = spawn("~/telebit", ["http ", port]);
     this.sysLinks = { http: "", https: "" };
   }
 
@@ -13,19 +13,20 @@ class TunnelManager {
       console.log("The tunneling process has started!");
 
       this.tunnelMoleProcess.stdout.on("data", (data) => {
-        if (data.toString().startsWith("http://")) {
-          this.sysLinks.http = data.toString().split(" ");
-        }
-        if (data.toString().startsWith("https://")) {
-          this.sysLinks.https = data.toString().split(" ");
+        console.log(data.toString());
+        // if (data.toString().startsWith("http://")) {
+        //   this.sysLinks.http = data.toString().split(" ");
+        // }
+        // if (data.toString().startsWith("https://")) {
+        //   this.sysLinks.https = data.toString().split(" ");
 
-          resolve([this.sysLinks.http[0], this.sysLinks.https[0]]);
-        }
+        //   resolve([this.sysLinks.http[0], this.sysLinks.https[0]]);
+        // }
       });
 
       this.tunnelMoleProcess.stderr.on("data", (data) => {
         console.log("ERRO: ", data);
-        reject(data.toString());
+        // reject(data.toString());
       });
 
       this.tunnelMoleProcess.on("close", (code) => {
